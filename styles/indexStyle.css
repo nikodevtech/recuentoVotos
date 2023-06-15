@@ -1,0 +1,95 @@
+#canvasVotos {
+    width: 50%;
+    max-width: 600px;
+    margin: auto;
+    
+}
+body {
+	background-color: #444;
+	color: #fff;
+}
+
+.navbar {
+	background: linear-gradient(to right, #657281, #1D2671); 
+  	color: #fff;
+  	padding: 20px;
+}
+
+.navbar-logo {
+  	height: 60px;
+  	width: auto;
+}
+
+@media (max-width: 992px) {
+  .navbar-logo {
+    height: 40px;
+  }
+}
+
+.navbar a {
+  	color: #fff;
+}
+
+.btn {
+	color: #fff;
+  	border-color: #1D2671;
+  	border-radius: 50px;
+  	background-color: #222;
+}
+
+.btn:hover,
+.btn:focus {
+  	color: #fff;
+  	background-color: #1D2671;
+  	border-color: #1D2671;
+}
+
+.btn-group {
+  	margin-top: 20px;
+  	display: flex;
+  	justify-content: center;
+  	align-items: center;
+  	flex-wrap: wrap;
+}
+
+.btn-group .btn {
+  	margin-right: 10px;
+}
+
+@media (max-width: 767px) {
+  .btn-group .btn {
+    	margin-right: 0;
+    	margin-bottom: 10px;
+  }
+}
+
+.dark-mode-btn {
+  	margin-left: auto;
+}
+
+#menuH1,
+#votaMunH1,
+#votaGenH1,
+#recuentoH1 {
+	font-family: 'Roboto Condensed', sans-serif;
+  	text-shadow: 2px 2px #333;
+  	margin-top: 50px;
+  	margin-bottom: 50px;
+  	font-size: 3rem;
+  	text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.8);
+}
+
+label {
+  margin-right: 10px;
+}
+
+button {
+  margin-top: 20px;
+}
+.container {
+	padding-bottom:10%;
+}
+
+
+
+

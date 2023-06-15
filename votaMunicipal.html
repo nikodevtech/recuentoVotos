@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<meta charset="UTF-8">
+    <title>Votaciones Municipales</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="styles/indexStyle.css">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <!-- Barra de navegación superior -->
+  	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="index.html">
+			<img class="navbar-logo"src="logo.png" alt="logo">
+			Proyecto Votos
+			</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link" href="votaGeneral.html">Elecciones Generales</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="votaMunicipal.html">Elecciones Municipales</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="recuentoVotos.html">Recuento de Votos</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- Formulario votación elecciones municipalesr -->
+    <div class="container">
+		<h1 id="votaMunH1" class="text-center">Votaciones Municipales</h1>
+		<form onsubmit="guardarVotoMun(); return false;">	
+			<div class="form-group">
+	          <label for="dni" class="form-label text-white">DNI:</label>
+	          <input type="text" id="dni" name="dni" placeholder="00000000A" pattern="[0-9]{8}[A-Z]{1}" required class="form-control">
+	        </div>
+       		<br><br><br>	
+	        <div class="row justify-content-center">
+	          <div class="col-auto">
+	            <div class="form-check form-check-inline">
+	              <input type="radio" id="psoe" name="partido" value="psoe" class="form-check-input">
+	              <label for="psoe" class="form-check-label">PSOE</label>
+	            </div>
+	            <div class="form-check form-check-inline">
+	              <input type="radio" id="pp" name="partido" value="pp" class="form-check-input">
+	              <label for="pp" class="form-check-label">PP</label>
+	            </div>
+	            <div class="form-check form-check-inline">
+	              <input type="radio" id="podemos" name="partido" value="podemos" class="form-check-input">
+	              <label for="podemos" class="form-check-label">Podemos</label>
+	            </div>
+	            <div class="form-check form-check-inline">
+	              <input type="radio" id="vox" name="partido" value="vox" class="form-check-input">
+	              <label for="vox" class="form-check-label">Vox</label>
+	            </div>
+	            <div class="form-check form-check-inline">
+	              <input type="radio" id="pacma" name="partido" value="pacma" class="form-check-input">
+	              <label for="pacma" class="form-check-label">PACMA</label>
+	            </div>
+	            <div class="form-check form-check-inline">
+	              <input type="radio" id="ciudadanos" name="partido" value="ciudadanos" class="form-check-input">
+	              <label for="ciudadanos" class="form-check-label">Ciudadanos</label>
+	            </div>
+	            <div class="form-check form-check-inline">
+	              <input type="radio" id="otro" name="partido" value="otro" class="form-check-input">
+	              <label for="otro" class="form-check-label">Otro</label>
+	            </div>
+	          </div>
+	        </div>
+	        <br><br><br>
+	        <div class="d-flex justify-content-between">
+	          <a href="index.html"><button type="button" class="btn">Volver</button></a>
+	          <button type="submit" class="btn">Enviar</button>
+			</div>
+		</form>
+	</div>
+    <!--
+	
+	Este script es responsable de almacenar los votos para las Elecciones municipales en el almacenamiento local 
+	del navegador del usuario. Cuando se envía el formulario de votación, se comprueba si el DNI introducido ya ha votado
+	antes en estas elecciones. Si no ha votado, se registra el voto en el almacenamiento local del navegador para mantener
+	un registro de los votos de las Elecciones municipales.
+
+	 -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+    <script>
+      function guardarVotoMun() {
+        var dni = document.getElementById("dni").value;
+        var partido = document.querySelector('input[name="partido"]:checked').value;
+        var votosMun = JSON.parse(localStorage.getItem("votosMun")) || {};
+        if (dni in votosMun) {
+          alert("Ya has votado con este DNI");
+        } else {
+          votosMun[dni] = partido;
+          localStorage.setItem("votosMun", JSON.stringify(votosMun));
+          alert("Tu voto ha sido registrado");
+        }
+      }
+    </script>
+  </body>
+</html>
