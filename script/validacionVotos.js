@@ -52,3 +52,7 @@ function guardarVotoMun() {
 
   return true; // Permite el envío del formulario cuanto todo está validado
 }
+//Se le da funcionalidad al boton para poder volver a la vista principal
+document.getElementById("volverBtn").addEventListener("click", function() {
+  window.location.href = "index.html";
+});
