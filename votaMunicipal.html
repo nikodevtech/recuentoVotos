@@ -23,7 +23,6 @@
       <div class="container-fluid">
         <a class="navbar-brand" href="index.html">
           <img class="navbar-logo" src="img/logo.png" alt="logo" />
-          Proyecto Votos
         </a>
         <button
           class="navbar-toggler"
@@ -65,7 +64,7 @@
         requerido, es decir los 8 dígitos y a continuación la letra sin
         espacios.
       </p>
-      <form onsubmit="guardarVotoMun(); return false;">
+      <form onsubmit="return guardarVotoMun();">
         <div class="form-group">
           <label for="dni" class="form-label text-white">DNI:</label>
           <input
@@ -162,31 +161,8 @@
         </div>
       </form>
     </div>
-    <!--
-	
-	Este script es responsable de almacenar los votos para las Elecciones municipales en el almacenamiento local 
-	del navegador del usuario. Cuando se envía el formulario de votación, se comprueba si el DNI introducido ya ha votado
-	antes en estas elecciones. Si no ha votado, se registra el voto en el almacenamiento local del navegador para mantener
-	un registro de los votos de las Elecciones municipales.
-
-	 -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
-    <script>
-      function guardarVotoMun() {
-        var dni = document.getElementById("dni").value;
-        var partido = document.querySelector(
-          'input[name="partido"]:checked'
-        ).value;
-        var votosMun = JSON.parse(localStorage.getItem("votosMun")) || {};
-        if (dni in votosMun) {
-          alert("Ya has votado con este DNI");
-        } else {
-          votosMun[dni] = partido;
-          localStorage.setItem("votosMun", JSON.stringify(votosMun));
-          alert("Tu voto ha sido registrado");
-        }
-      }
-    </script>
+    <script src="script/validacionVotos.js"></script>
   </body>
 </html>

@@ -90,6 +90,13 @@ button {
   padding-bottom: 20%;
   max-width: 830px;
 }
+.container-fluid{
+ max-width: 830px;
+ gap: 50px;
+}
 p {
   text-align: center;
+}
+.nav-link{
+  margin: 12px;
 }
