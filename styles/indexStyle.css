@@ -95,7 +95,15 @@ button {
 }
 p {
   text-align: center;
+  margin-bottom: 70px;
 }
 .nav-link{
+  margin: 12px;
+}
+#dni{
+  max-width: 50%;
+  margin: 0 auto;
+}
+.form-check{
   margin: 12px;
 }
