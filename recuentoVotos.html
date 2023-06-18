@@ -1,186 +1,100 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Recuento de Votación</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-	<link rel="stylesheet" href="styles/indexStyle.css">
-	<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="styles/indexStyle.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-    /*
-    Este script utiliza la biblioteca de JavaScript Chart.js para crear gráficos de votos para elecciones generales y municipales. 
-    La función `limpiarCanvas()` se encarga de obtener el canvas por su id y destruir la instancia de la gráfica si existe. 
-    La función `mostrarGraficoGeneral()` obtiene los votos del almacenamiento local, calcula la cantidad de votos para cada partido político 
-    y crea un gráfico de dona para los resultados de las elecciones generales. 
-    La función `mostrarGraficoMunicipal()` hace lo mismo pero para las elecciones municipales. Ambas funciones crean un objeto Chart 
-    con las opciones y los datos necesarios para mostrar la gráfica.
-    */
-    function limpiarCanvas() {
-    	  // Obtener el canvas por su id
-    	  var canvas = document.getElementById('canvasVotos');
-    	  
-    	  // Obtener la instancia de la gráfica
-    	  var chartInstance = Chart.getChart(canvas);
-
-    	  // Si la instancia existe, destruirla
-    	  if (chartInstance) {
-    	    chartInstance.destroy();
-    	  }
-    	}
-
-    
-    function mostrarGraficoGeneral() {    	
-    	
-    	  // Obtener los votos del almacenamiento local
-    	  var votosGen = JSON.parse(localStorage.getItem("votosGen")) || {};
-
-    	  // Calcular la cantidad de votos para cada partido político
-    	  var psoe = 0, pp = 0, podemos = 0, vox = 0, otro = 0;
-    	  for (var dni in votosGen) {
-    	    switch (votosGen[dni]) {
-    	      case "psoe":
-    	        psoe++;
-    	        break;
-    	      case "pp":
-    	        pp++;
-    	        break;
-    	      case "podemos":
-    	        podemos++;
-    	        break;
-    	      case "vox":
-    	        vox++;
-    	        break;
-    	      case "otro":
-    	        otro++;
-    	        break;
-    	    }
-    	  }
-    	  
-    	  // Crear el objeto Chart
-    	  var ctx = document.getElementById("canvasVotos").getContext("2d");
-    	  var chart = new Chart(ctx, {
-    	    type: 'doughnut',
-    	    data: {
-    	      labels: ["PSOE", "PP", "Podemos", "Vox", "Otro"],
-    	      datasets: [{
-    	        backgroundColor: ["#f44336", "#2196f3", "#550069", "#4caf50", "#607d8b"],
-    	        data: [psoe, pp, podemos, vox, otro]
-    	      }]
-    	    },
-    	    options: {
-    	      responsive: true,
-    	      title: {
-    	        display: true,
-    	        text: 'Resultados votaciones generales'
-    	      }
-    	    }
-    	  });
-    	}
-      
-    function mostrarGraficoMunicipal() {
-    	  
-		  // Obtener los votos del almacenamiento local
-    	  var votosMun = JSON.parse(localStorage.getItem("votosMun")) || {};
-
-    	  // Calcular la cantidad de votos para cada partido político
-    	  var psoe = 0, pp = 0, podemos = 0, vox = 0, pacma = 0, ciudadanos = 0, otro = 0;
-    	  for (var dni in votosMun) {
-    	    switch (votosMun[dni]) {
-    	      case "psoe":
-    	        psoe++;
-    	        break;
-    	      case "pp":
-    	        pp++;
-    	        break;
-    	      case "podemos":
-    	        podemos++;
-    	        break;
-    	      case "vox":
-    	        vox++;
-    	        break;
-    	      case "pacma":
-    	        pacma++;
-    	        break;
-    	      case "ciudadanos":
-    	        ciudadanos++;
-    	        break;
-    	      case "otro":
-    	        otro++;
-    	        break;
-    	    }
-    	  }
-
-    	  // Crear el objeto Chart
-    	  var ctx = document.getElementById("canvasVotos").getContext("2d");
-    	  var chart = new Chart(ctx, {
-    	    type: 'doughnut',
-    	    data: {
-    	      labels: ["PSOE", "PP", "Podemos", "Vox", "PACMA", "Ciudadanos", "Otro"],
-    	      datasets: [{
-    	        backgroundColor: ["#f44336", "#2196f3", "#550069", "#4caf50", "#91f299", "#e35502", "#607d8b"],
-    	        data: [psoe, pp, podemos, vox, pacma, ciudadanos, otro]
-    	      }]
-    	    },
-    	    options: {
-    	      responsive: true,
-    	      title: {
-    	        display: true,
-    	        text: 'Resultados votaciones municipales'
-    	      }
-    	    }
-    	  });
-    	}
-    </script>
+    <script src="script/grafico.js"></script>
   </head>
-    <body>
+  <body>
     <!-- Barra de navegación superior -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="index.html">
-			<img class="navbar-logo"src="logo.png" alt="logo">
-			Proyecto Votos
-			</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item">
-						<a class="nav-link" href="votaGeneral.html">Elecciones Generales</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="votaMunicipal.html">Elecciones Municipales</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="recuentoVotos.html">Recuento de Votos</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</nav>
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">
+          <img class="navbar-logo" src="img/logo.png" alt="logo" />
+          Proyecto Votos
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarTogglerDemo02"
+          aria-controls="navbarTogglerDemo02"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="votaGeneral.html"
+                >Elecciones Generales</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="votaMunicipal.html"
+                >Elecciones Municipales</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="recuentoVotos.html"
+                >Recuento de Votos</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
     <!-- Botones con opciones menú llamando a las funciones JS para mostrar gráfico -->
     <div class="container">
-      <h1 id="recuentoH1" class="text-center">Recuento de Votación</h1>
+      <h1 id="recuentoH1" class="text-center">Resultados Votos</h1>
+      <p>
+        Puede visualizar a modo gráfico los resultados actuales de los votos
+        realizados para las elecciones generales y municipales.
+      </p>
       <div class="row justify-content-center text-center">
         <div class="row justify-content-center">
-		  <div class="col-8 col-md-6 col-lg-4 order-1 order-md-0">
-		    <button class="btn w-100 mb-2" onclick="limpiarCanvas(); mostrarGraficoGeneral();">Recuento Votación General</button>
-		  </div>
-		  <div class="col-8 col-md-6 col-lg-4 order-2 order-md-0">
-		    <button class="btn w-100 mb-2" onclick="limpiarCanvas(); mostrarGraficoMunicipal();">Recuento Votación Municipal</button>
-		  </div>
-		  <div class="col-8 col-md-6 col-lg-4 order-0 order-md-1">
-		    <button class="btn w-100" onclick="location.href='index.html'">Volver</button>
-		  </div>
-		</div>
+          <div class="col-8 col-md-6 col-lg-4 order-1 order-md-0">
+            <button
+              class="btn w-100 mb-2"
+              onclick="limpiarCanvas(); mostrarGraficoGeneral();"
+            >
+              Resultado Votación General
+            </button>
+          </div>
+          <div class="col-8 col-md-6 col-lg-4 order-2 order-md-0">
+            <button
+              class="btn w-100 mb-2"
+              onclick="limpiarCanvas(); mostrarGraficoMunicipal();"
+            >
+              Resultado Votación Municipal
+            </button>
+          </div>
+          <div class="col-8 col-md-6 col-lg-4 order-0 order-md-1">
+            <button class="btn w-100" onclick="location.href='index.html'">
+              Volver
+            </button>
+          </div>
+        </div>
       </div>
-      <br>
+      <br />
       <canvas id="canvasVotos"></canvas>
     </div>
-    
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
   </body>
 </html>
